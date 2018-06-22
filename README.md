@@ -6,7 +6,7 @@ And worst case scenario, we are going to have [a great time doing it](https://tw
 
 ## Resources
 
-I found a bunch of interesting links while I was trying to do it. Let me compile them all here:
+I found a bunch of interesting links while I was trying to do it:
 
 - [A great compilation of interesting articles](http://www.boardgamedesignlab.com/design-theory/)
 
