@@ -1,4 +1,5 @@
-const shuffle = require('shuffle-array');
+const Shuffle = require('shuffle-array');
+const Roll = require('roll');
 
 // Deck of party goodies and party poopers 
 const goodies = Array(20);
