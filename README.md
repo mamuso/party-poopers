@@ -1,4 +1,4 @@
-# Birdy Wirdies vs. Party Poopers
+# Party Poopers, a Birdy Wirdy card game
 
 This is a phisical card game that I'm **trying to build** for Marco's eighth birthday. He LOVES playing card games like Sushi Go, Exploding Kittens or Machi Koro. I thought it would be awesome if we could design a game together and I could try to make it look _professional_ for him as a birthday present.
 
