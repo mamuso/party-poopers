@@ -32,6 +32,7 @@ class Game {
     this.players = Array(players);
     this.deck = Shuffle(deck);
     this.birdiewirdies = Shuffle(birdiewirdies);
+    this.nextPlayer = 0;
 
     // Set up the game: 3 birds per player, 3 energy coins per bird
     for (let i = 0; i < players; i++) {
@@ -47,13 +48,28 @@ class Game {
   };
 
   play() {
-    // while (this.keepPlaying()) {
-    //   statHands++;
-    // }
+    while (this.keepPlaying()) {
+      console.log(this.setTurn())
+      statHands++;
+    }
   };
+
+  // Who plays next
+  setTurn() {
+    this.nextPlayer++;
+    if (this.nextPlayer >= this.players.length) {
+      this.nextPlayer = 0;
+    }
+    return this.nextPlayer;
+  }
 
   keepPlaying() {
     // this.players()
+    if (statHands < 100) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   printStats() {
