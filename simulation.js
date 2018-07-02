@@ -1,12 +1,16 @@
 const Shuffle = require('shuffle-array');
 const Roll = require('roll');
 
-// Deck of party goodies and party poopers 
-const goodies = Array(18).fill(1);
-const supergoodies = Array(2).fill(2);
+// Defining the deck
+const goodiesCards = 18;
+const supergoodiesCards = 2;
+const poopersCards = 15;
+const superpoopersCards = 5;
 
-const poopers = Array(15).fill(-1);
-const superpoopers = Array(5).fill(-2);
+const goodies = Array(goodiesCards).fill(1);
+const supergoodies = Array(supergoodiesCards).fill(2);
+const poopers = Array(poopersCards).fill(-1);
+const superpoopers = Array(superpoopersCards).fill(-2);
 
 const deck = [...goodies, ...supergoodies, ...poopers, ...superpoopers];
 
@@ -15,14 +19,47 @@ const deck = [...goodies, ...supergoodies, ...poopers, ...superpoopers];
 const birdiewirdiesdeck = [1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6];
 
 
+// Stats
+let statHands = 0;
+let statMaxCoins = 0;
+
+
 // Let's define all the game rules
 class Game {
   constructor(players, deck, birdiewirdies) {
+
     // Get all the game ingredients
-    this.payers = players;
+    this.players = Array(players);
     this.deck = Shuffle(deck);
     this.birdiewirdies = Shuffle(birdiewirdies);
+
+    // Set up the game: 3 birds per player, 3 energy coins per bird
+    for (let i = 0; i < players; i++) {
+      let j = 0;
+      this.players[i] = Array()
+      while (j < 3) {
+        this.players[i][j] = [this.birdiewirdies.pop(), 3];
+        j++;
+      }
+    }
+
+    this.play();
+  };
+
+  play() {
+    // while (this.keepPlaying()) {
+    //   statHands++;
+    // }
+  };
+
+  keepPlaying() {
+    // this.players()
+  };
+
+  printStats() {
+
   }
+
 }
 
 const game1 = new Game(2, deck, birdiewirdiesdeck);
