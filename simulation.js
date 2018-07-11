@@ -1,6 +1,9 @@
 const Shuffle = require("shuffle-array");
 const Roll = require("roll");
 
+// Warm the dice
+roll = new Roll();
+
 // Defining the deck
 const goodiesCards = 18;
 const supergoodiesCards = 2;
@@ -45,12 +48,21 @@ class Game {
   }
 
   play() {
+    console.log(this.players);
     while (this.keepPlaying()) {
-      // setting the turn of the next player
+      // Roll the dice
+      const diceSays = roll.roll("d6").result;
+
+      // Check if the player has a card with the dice result
+
+      // Setting the turn of the next player
       this.setTurn();
       statHands++;
+      this.players = 0;
     }
   }
+
+  hasCard(diceSays) {}
 
   // Who plays next
   setTurn() {
@@ -61,14 +73,16 @@ class Game {
     return this.nextPlayer;
   }
 
+  // Should we keep playing
   keepPlaying() {
-    if (this.players() > 1) {
+    if (this.players.length > 1) {
       return true;
     } else {
       return false;
     }
   }
 
+  // Tell me how we did
   printStats() {}
 }
 
