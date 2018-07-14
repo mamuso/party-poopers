@@ -34,12 +34,12 @@ class Game {
     this.birdiewirdies = Shuffle(birdiewirdies);
     this.nextPlayer = 0;
 
-    // Set up the game: 3 birds per player, 3 energy coins per bird
+    // Set up the game: 3 birds per player, 3 energy coins per bird (🎉)
     for (let i = 0; i < players; i++) {
       let j = 0;
       this.players[i] = Array();
       while (j < 3) {
-        this.players[i][j] = [this.birdiewirdies.pop(), 3];
+        this.players[i][j] = [this.birdiewirdies.pop(), '🎉', '🎉', '🎉'];
         j++;
       }
     }
@@ -48,13 +48,19 @@ class Game {
   }
 
   play() {
-    console.log(this.players);
     while (this.keepPlaying()) {
       // Roll the dice
       const diceSays = roll.roll("d6").result;
 
       // Check if the player has a card with the dice result
+      const playerHasIt = this.players[this.nextPlayer].some(row => row.includes(diceSays));
 
+      if (playerHasIt) {
+        // player draws a card from the goodies/poopers pile and adds or substract the value to energy coins
+
+      } else {
+
+      }
       // Setting the turn of the next player
       this.setTurn();
       statHands++;
