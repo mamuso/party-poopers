@@ -39,7 +39,7 @@ class Game {
       let j = 0;
       this.players[i] = Array();
       while (j < 3) {
-        this.players[i][j] = [this.birdiewirdies.pop(), '🎉', '🎉', '🎉'];
+        this.players[i][j] = [this.birdiewirdies.pop(), "🎉", "🎉", "🎉"];
         j++;
       }
     }
@@ -52,15 +52,20 @@ class Game {
       // Roll the dice
       const diceSays = roll.roll("d6").result;
 
-      // Check if the player has a card with the dice result
-      const playerHasIt = this.players[this.nextPlayer].some(row => row.includes(diceSays));
+      // Check if the player has a card with the dice result, if not, choose a different player
+      const deckPlayer = this.playerHasCard(diceSays)
+        ? this.players[this.nextPlayer]
+        : this.players[this.pickSomeoneButMe()];
 
-      if (playerHasIt) {
-        // player draws a card from the goodies/poopers pile and adds or substract the value to energy coins
+      // player draws a card from the goodies/poopers pile and adds or subtract the value to energy coins
+      // console.log(this.deck.pop());
+      this.players[this.nextPlayer].forEach(row => {
+        if (row.includes(diceSays)) {
+          console.log("hooray");
+          console.log(row);
+        }
+      });
 
-      } else {
-
-      }
       // Setting the turn of the next player
       this.setTurn();
       statHands++;
@@ -68,7 +73,18 @@ class Game {
     }
   }
 
-  hasCard(diceSays) {}
+  playerHasCard(diceSays) {
+    return this.players[this.nextPlayer].some(row => row.includes(diceSays));
+  }
+
+  pickSomeoneButMe() {
+    // Array with all players
+    const whoIsPlaying = Array.from(Array(this.players.length).keys());
+    const me = whoIsPlaying.indexOf(this.nextPlayer);
+    whoIsPlaying.splice(me, 1);
+
+    return whoIsPlaying[Math.floor(Math.random() * whoIsPlaying.length)];
+  }
 
   // Who plays next
   setTurn() {
