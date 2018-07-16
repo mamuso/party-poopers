@@ -60,17 +60,26 @@ class Game {
       // player draws a card from the goodies/poopers pile and adds or subtract the value to energy coins
       const cardFromPile = this.deck.pop();
 
-      this.players[this.nextPlayer].forEach(row => {
-        if (row.includes(diceSays)) {
-          if (cardFromPile < 0) {
-            row.splice(row.indexOf("🎉"), 1);
-          } else {
-            row.push("🎉");
-          }
-          console.log(row);
-          return;
+      // If I have the dice, I only can add or remove to the card with the number
+      if (deckPlayer === this.players[this.nextPlayer]) {
+        for (var i = 0; i < Math.abs(cardFromPile); i++) {
+          this.players[this.nextPlayer].forEach(row => {
+            if (row.includes(diceSays)) {
+              // cards can be more than +-1
+              console.log(cardFromPile);
+              if (cardFromPile < 0) {
+                row.splice(row.indexOf("🎉"), 1);
+              } else {
+                row.push("🎉");
+              }
+              return;
+            }
+          });
         }
-      });
+        console.log(this.players[this.nextPlayer]);
+      } else {
+        console.log("others");
+      }
 
       // Setting the turn of the next player
       this.setTurn();
