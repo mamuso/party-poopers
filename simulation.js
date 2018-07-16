@@ -62,29 +62,45 @@ class Game {
 
       // If I have the dice, I only can add or remove to the card with the number
       if (deckPlayer === this.players[this.nextPlayer]) {
-        for (var i = 0; i < Math.abs(cardFromPile); i++) {
-          this.players[this.nextPlayer].forEach(row => {
-            if (row.includes(diceSays)) {
-              // cards can be more than +-1
-              console.log(cardFromPile);
-              if (cardFromPile < 0) {
-                row.splice(row.indexOf("🎉"), 1);
-              } else {
-                row.push("🎉");
-              }
-              return;
-            }
-          });
-        }
-        console.log(this.players[this.nextPlayer]);
+        this.rulesApplyToMe(cardFromPile, diceSays, deckPlayer);
       } else {
-        console.log("others");
+        this.rulesApplyToOthers(cardFromPile, diceSays, deckPlayer);
       }
 
       // Setting the turn of the next player
       this.setTurn();
       statHands++;
       this.players = 0;
+    }
+  }
+
+  rulesApplyToMe(cardFromPile, diceSays, deckPlayer) {
+    // We add or remove as many coins as the card says
+    for (var i = 0; i < Math.abs(cardFromPile); i++) {
+      deckPlayer.forEach(row => {
+        if (row.includes(diceSays)) {
+          // cards can be more than +-1
+          if (cardFromPile < 0) {
+            row.splice(row.indexOf("🎉"), 1);
+          } else {
+            row.push("🎉");
+          }
+          return;
+        }
+      });
+    }
+  }
+
+  rulesApplyToOthers(cardFromPile, diceSays, deckPlayer) {
+    // We add or remove as many coins as the card says, but we pick random rows
+    // In the game you might want to take a different strategy, but for simulation purposes seems fine
+    for (var i = 0; i < Math.abs(cardFromPile); i++) {
+      let row = deckPlayer[Math.floor(Math.random() * deckPlayer.length)];
+      if (cardFromPile < 0) {
+        row.splice(row.indexOf("🎉"), 1);
+      } else {
+        row.push("🎉");
+      }
     }
   }
 
