@@ -67,10 +67,12 @@ class Game {
         this.rulesApplyToOthers(cardFromPile, diceSays, deckPlayer);
       }
 
+      // Adjust the array available cards of the player
+      this.hasCoins(deckPlayer);
       // Setting the turn of the next player
       this.setTurn();
       statHands++;
-      this.players = 0;
+      // this.players = 0;
     }
   }
 
@@ -104,6 +106,14 @@ class Game {
     }
   }
 
+  hasCoins(deckPlayer) {
+    deckPlayer.forEach((row, i) => {
+      if (row.length === 1) {
+        deckPlayer.splice(i, 1);
+      }
+    });
+  }
+
   playerHasCard(diceSays) {
     return this.players[this.nextPlayer].some(row => row.includes(diceSays));
   }
@@ -128,15 +138,24 @@ class Game {
 
   // Should we keep playing
   keepPlaying() {
+    this.players.forEach((row, i) => {
+      if (row.length === 1) {
+        this.players.splice(i, 1);
+      }
+    });
     if (this.players.length > 1) {
       return true;
     } else {
+      this.printStats();
       return false;
     }
   }
 
   // Tell me how we did
-  printStats() {}
+  printStats() {
+    console.log("yay");
+    console.log(statHands);
+  }
 }
 
 const game1 = new Game(2, deck, birdiewirdiesdeck);
