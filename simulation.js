@@ -7,8 +7,8 @@ roll = new Roll();
 // Defining the deck
 const goodiesCards = 18;
 const supergoodiesCards = 2;
-const poopersCards = 15;
-const superpoopersCards = 5;
+const poopersCards = 10;
+const superpoopersCards = 10;
 
 const goodies = Array(goodiesCards).fill(1);
 const supergoodies = Array(supergoodiesCards).fill(2);
@@ -23,11 +23,19 @@ const birdiewirdiesdeck = [1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6];
 
 // Stats
 let statHands = 0;
+let statCurrentCoins = 0;
 let statMaxCoins = 0;
+
+let globalStatHands = [];
+let globalMaxCoins = [];
 
 // Let's define all the game rules
 class Game {
   constructor(players, deck, birdiewirdies) {
+    statHands = 0;
+    statCurrentCoins = 0;
+    statMaxCoins = 0;
+
     // Get all the game ingredients
     this.players = Array(players);
     this.deck = Shuffle(deck);
@@ -60,6 +68,9 @@ class Game {
       // player draws a card from the goodies/poopers pile and adds or subtract the value to energy coins
       const cardFromPile = this.deck.pop();
 
+      // Setting up potential maximum coins
+      this.setMaxCoins(cardFromPile);
+
       // If I have the dice, I only can add or remove to the card with the number
       if (deckPlayer === this.players[this.nextPlayer]) {
         this.rulesApplyToMe(cardFromPile, diceSays, deckPlayer);
@@ -69,6 +80,10 @@ class Game {
 
       // Adjust the array available cards of the player
       this.hasCoins(deckPlayer);
+
+      // If the card is +-2, then we return it to the pile and shuffle
+      this.returnCard(cardFromPile);
+
       // Setting the turn of the next player
       this.setTurn();
       statHands++;
@@ -112,10 +127,34 @@ class Game {
         deckPlayer.splice(i, 1);
       }
     });
+    this.players.forEach((row, i) => {
+      if (row.length === 1) {
+        this.players.splice(i, 1);
+      }
+    });
+  }
+
+  setMaxCoins(cardFromPile) {
+    if (statCurrentCoins == 0) {
+      statCurrentCoins = statMaxCoins = this.players.length * 3 * 3;
+    }
+
+    statCurrentCoins = statCurrentCoins + cardFromPile;
+
+    if (statCurrentCoins > statMaxCoins) {
+      statMaxCoins = statCurrentCoins;
+    }
   }
 
   playerHasCard(diceSays) {
     return this.players[this.nextPlayer].some(row => row.includes(diceSays));
+  }
+
+  returnCard(cardFromPile) {
+    if (Math.abs(cardFromPile) > 1) {
+      this.deck.push(cardFromPile);
+      Shuffle(this.deck);
+    }
   }
 
   pickSomeoneButMe() {
@@ -138,11 +177,6 @@ class Game {
 
   // Should we keep playing
   keepPlaying() {
-    this.players.forEach((row, i) => {
-      if (row.length === 1) {
-        this.players.splice(i, 1);
-      }
-    });
     if (this.players.length > 1) {
       return true;
     } else {
@@ -153,9 +187,21 @@ class Game {
 
   // Tell me how we did
   printStats() {
-    console.log("yay");
-    console.log(statHands);
+    globalStatHands.push(statHands);
+    globalMaxCoins.push(statMaxCoins);
+
+    console.log("THIS GAME:");
+    console.log("-----------------------");
+    console.log(`- ${statHands} turns`);
+    console.log(`- ${statMaxCoins} coins needed to play the game`);
+    console.log("-----------------------");
+    console.log(" ");
   }
 }
 
-const game1 = new Game(2, deck, birdiewirdiesdeck);
+j = 0;
+
+while (j < 1000) {
+  const game = new Game(3, deck, birdiewirdiesdeck);
+  j++;
+}
