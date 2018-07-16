@@ -58,11 +58,17 @@ class Game {
         : this.players[this.pickSomeoneButMe()];
 
       // player draws a card from the goodies/poopers pile and adds or subtract the value to energy coins
-      // console.log(this.deck.pop());
+      const cardFromPile = this.deck.pop();
+
       this.players[this.nextPlayer].forEach(row => {
         if (row.includes(diceSays)) {
-          console.log("hooray");
+          if (cardFromPile < 0) {
+            row.splice(row.indexOf("🎉"), 1);
+          } else {
+            row.push("🎉");
+          }
           console.log(row);
+          return;
         }
       });
 
