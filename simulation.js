@@ -7,8 +7,8 @@ roll = new Roll();
 // Defining the deck
 const goodiesCards = 18;
 const supergoodiesCards = 2;
-const poopersCards = 10;
-const superpoopersCards = 10;
+const poopersCards = 14;
+const superpoopersCards = 6;
 
 const goodies = Array(goodiesCards).fill(1);
 const supergoodies = Array(supergoodiesCards).fill(2);
@@ -29,12 +29,15 @@ let statMaxCoins = 0;
 let globalStatHands = [];
 let globalMaxCoins = [];
 
+let globalPlayers = 0;
+
 // Let's define all the game rules
 class Game {
   constructor(players, deck, birdiewirdies) {
     statHands = 0;
     statCurrentCoins = 0;
     statMaxCoins = 0;
+    globalPlayers = players;
 
     // Get all the game ingredients
     this.players = Array(players);
@@ -190,18 +193,33 @@ class Game {
     globalStatHands.push(statHands);
     globalMaxCoins.push(statMaxCoins);
 
-    console.log("THIS GAME:");
     console.log("-----------------------");
     console.log(`- ${statHands} turns`);
     console.log(`- ${statMaxCoins} coins needed to play the game`);
     console.log("-----------------------");
-    console.log(" ");
+    console.log("");
   }
 }
 
 j = 0;
 
-while (j < 1000) {
-  const game = new Game(3, deck, birdiewirdiesdeck);
+while (j < 1500) {
+  const game = new Game(4, deck, birdiewirdiesdeck);
   j++;
 }
+
+const reducer = (accumulator, currentValue) => accumulator + currentValue;
+const totalGames = globalStatHands.length;
+
+console.log("");
+console.log("AVERAGE AND MAX");
+console.log("-----------------------");
+console.log(`- ${globalPlayers} players`);
+console.log(
+  `- Average ${Math.floor(globalStatHands.reduce(reducer) / totalGames)} turns`
+);
+console.log(
+  `- ${Math.max(...globalMaxCoins)} maximum coins needed to play a game`
+);
+console.log("-----------------------");
+console.log("");
