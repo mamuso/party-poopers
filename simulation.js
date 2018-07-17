@@ -193,11 +193,9 @@ class Game {
     globalStatHands.push(statHands);
     globalMaxCoins.push(statMaxCoins);
 
-    console.log("-----------------------");
     console.log(`- ${statHands} turns`);
     console.log(`- ${statMaxCoins} coins needed to play the game`);
     console.log("-----------------------");
-    console.log("");
   }
 }
 
@@ -218,8 +216,6 @@ console.log(`- ${globalPlayers} players`);
 console.log(
   `- Average ${Math.floor(globalStatHands.reduce(reducer) / totalGames)} turns`
 );
-console.log(
-  `- ${Math.max(...globalMaxCoins)} maximum coins needed to play a game`
-);
+console.log(`- ${Math.max(...globalMaxCoins)} coins needed`);
 console.log("-----------------------");
 console.log("");
