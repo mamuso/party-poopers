@@ -4,6 +4,8 @@ This is a phisical card game that I'm **trying to build** for Marco's eighth bir
 
 And worst case scenario, we are going to have [a great time doing it](https://twitter.com/mamuso/status/1009269124025835520).
 
+SPAGHETTI CODE ALERT!!
+
 ## Resources
 
 I found a bunch of interesting links while I was trying to do it:
