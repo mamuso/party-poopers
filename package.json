@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/mamuso/birdy-wirdies-vs-party-poopers#readme",
   "dependencies": {
-    "roll": "^1.2.0",
+    "roll": "^1.3.1",
     "shuffle-array": "^1.0.1"
   }
 }
